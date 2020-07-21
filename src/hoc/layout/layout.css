@@ -8,3 +8,14 @@ body{
 a{
     text-decoration: none;
 }
+.logo{
+    flex-grow: 1;
+    padding-top: 8px;
+
+}
+.logo img{
+    width: 35px;
+}
+.t{
+    color:white;
+}
