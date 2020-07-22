@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 import './newList.css';
 import Button from '../Button/button';
 import CardInfo from '../../widgets/cardIn/cardInfo';
+import {firebaseTeams, firebaseLooper, firebaseArticles} from '../../../firebase';
 
-import {URL} from '../../../config';
+// import {URL} from '../../../config';
 
 
 export default class NewsList extends Component {
@@ -24,25 +25,61 @@ export default class NewsList extends Component {
     componentDidMount(){
 
 
-        this.request(this.state.start, this.state.end);
+        this.request(this.state.start+1, this.state.end);
         
     }
 
     request = (start, end) =>{
-        if(this.state.teams.length <1){
-            axios.get(`${URL}/teams`)
-            .then(response =>{
-                this.setState({
-                    teams:response.data
-                })
+        // if(this.state.teams.length <1){
+        //     axios.get(`${URL}/teams`)
+        //     .then(response =>{
+        //         this.setState({
+        //             teams:response.data
+        //         })
+        //     })
+        // }
+
+        if(this.state.teams.length<1){
+            firebaseTeams.once('value')
+            .then((snapshot)=>{
+                const teams = firebaseLooper(snapshot);
+                this.setState(
+                    teams
+                )
             })
         }
-        axios.get(`${URL}/articles?_start=${start}&_end=${end}`)
-        .then(response =>{
-            this.setState({
-                items:[...this.state.items, ...response.data]
-            })
-        })
+        // console.log(this.state.teams)
+        // firebaseArticles.once('value')
+        //     .then((snapshot)=>{
+        //         const articles = firebaseLooper(snapshot);
+        //         this.setState(
+        //             articles
+        //         )
+        //     })
+
+         firebaseArticles.orderByChild("id").startAt(start)
+         .endAt(end)
+         .once('value')
+         .then((snapshot)=>{
+             const articles = firebaseLooper(snapshot);
+             this.setState({
+                items:[...this.state.items, ...articles],
+                start,
+                end
+
+             })
+         })
+
+         .catch(e=>{
+             console.log(e)
+         })
+
+        // axios.get(`${URL}/articles?_start=${start}&_end=${end}`)
+        // .then(response =>{
+        //     this.setState({
+        //         items:[...this.state.items, ...response.data]
+        //     })
+        // })
     }
 
     loadMore = () =>{
