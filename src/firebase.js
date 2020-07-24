@@ -21,6 +21,25 @@ const firebaseConfig = {
   const firebaseArticles = firebaseDB.ref('articles');
   const firebaseTeams = firebaseDB.ref('teams');
   const firebaseVideos = firebaseDB.ref('videos');
+  
+  let nome='';
+  let pass='';
+
+  const getNome=()=>{
+    return nome;
+  }
+
+  const getPass=()=>{
+    return pass;
+  }
+
+  const funcao = (n, p)=>{
+    nome = n;
+    pass=p;
+
+  }
+
+  
 
 
   const firebaseLooper = (snapshot) =>{
@@ -55,7 +74,10 @@ const firebaseConfig = {
       firebaseArticles,
       firebaseTeams,
       firebaseVideos,
-      firebaseLooper
+      firebaseLooper,
+      getNome,
+      getPass,
+      funcao
       
       
       

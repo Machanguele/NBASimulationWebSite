@@ -21,7 +21,7 @@ const SideNavg= (props) => {
                 }}
 
             >
-                <SideNavItems />
+                <SideNavItems {...props} />
             </SideNav>
         </div>
     )

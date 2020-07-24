@@ -24,14 +24,14 @@ const Home = ()=> {
                     amount ={3}
                 />
 
-                {/* <VideoList 
+                <VideoList 
                     type = "card"
                     title = {true}
                     loadmore = {true}
                     start = {0}
                     amount = {3}
 
-                /> */}
+                />
            
 
                

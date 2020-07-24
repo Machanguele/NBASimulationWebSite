@@ -10,21 +10,31 @@ import './cardInfo.css';
     const CardInfo = (props) =>{
         // console.log(props.team);
 
+
         const teamName = (teams, team) =>{
-            let data = teams.find((item)=>{
-                return item.id === team
+            let item = teams.find((item)=>{
+        //    return item.id === team
+                
+            return item.teamId === 0
             });
+            console.log(teams)
+            let data = item.name;
+            
+            
             if(data){
-                return data.name;
+                return data;
 
             }
+            // console.log("Nome: "+data)
         }
 
         return (
             <div className = "cardInfo">
                 <span className = "teamName">
                 {/* Cavaliers */}
-                {teamName(props.teams, props.team)}
+                {/* {teamName(props.teams, props.team)}  */}
+                Cavaliers
+                
 
                 </span>
 

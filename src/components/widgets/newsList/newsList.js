@@ -42,10 +42,16 @@ export default class NewsList extends Component {
         if(this.state.teams.length<1){
             firebaseTeams.once('value')
             .then((snapshot)=>{
-                const teams = firebaseLooper(snapshot);
-                this.setState(
-                    teams
-                )
+                const team = firebaseLooper(snapshot);
+                // console.log(team)
+               this.setState({
+                teams: team
+               }
+                     
+                 )
+                //  console.log(this.state.teams)
+                 
+                // console.log(snapshot.val())
             })
         }
         // console.log(this.state.teams)
@@ -120,6 +126,7 @@ export default class NewsList extends Component {
                                     date = {item.date}
                                 />
                                 <h2>{item.title}</h2>
+                                {console.log(item.team)}
 
                            </Link>
                        </div>
@@ -140,7 +147,7 @@ export default class NewsList extends Component {
     //   console.log(this.state.items)
     // console.log("Inicio "+this.state.start);
     // console.log("fim "+this.state.end);
-    console.log();
+    // console.log(this.state.teams.length);
     return (
         <div>
             <TransitionGroup
